@@ -4,7 +4,7 @@ export default async function handler(
     req: NextApiRequest, 
     res: NextApiResponse
 ) {
-    if (req.query.key !== process.env.GHOST_API_KEY) {
+    if (req.query.key !== process.env.REVALIDATE_API_KEY) {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
