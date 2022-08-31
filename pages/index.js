@@ -3,13 +3,14 @@ import MoreStories from '../components/more-stories'
 import HeroPost from '../components/hero-post'
 import Intro from '../components/intro'
 import Layout from '../components/layout'
-import { getAllPostsForHome } from '../lib/api'
+import { getAllPostsForHome, getAllNewsPosts } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
 
-export default function Index({ allPosts }) {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
+export default function Index({ homePosts, newsPosts }) {
+  const heroPost = homePosts[0]
+  // const morePosts = allPosts.slice(1)
+  const morePosts = newsPosts
   return (
     <>
       <Layout>
@@ -36,8 +37,9 @@ export default function Index({ allPosts }) {
 }
 
 export async function getStaticProps({ preview }) {
-  const allPosts = (await getAllPostsForHome(preview)) || []
+  const homePosts = (await getAllPostsForHome(preview)) || []
+  const newsPosts = (await getAllNewsPosts(preview)) || []
   return {
-    props: { allPosts },
+    props: { homePosts, newsPosts },
   }
 }
